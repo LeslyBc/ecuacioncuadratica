@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App Ecuacion cuadrática</title>
+    <link rel="stylesheet" href="estilos/style.css">
+    <link rel="stylesheet" href="estilos/base.css">
+
+</head>
+
+<body>
+    <div>
+        <!--Título-->
+        <h1>Calculadora de Ecuaciones Cuadráticas</h1>
+    </div>
+    <div>
+        <!--Subtitulo-->
+        <h3>Por Fórmula General</h3>
+    </div>
+    <div>
+        <!--Campo para ingresar "a"-->
+        <label for="valor_a">Ingrese a:</label>
+        <!--Para que el usuario ingrese el primer valor (solo de tipo numérico)-->
+        <input type="number" id="valor_a" required><br><br>
+
+        <!--Campo para ingresar "b"-->
+        <label for="valor_b">Ingrese b:</label>
+        <!--Para que el usuario ingrese el segundo valor (solo de tipo numérico)-->
+        <input type="number" id="valor_b" required><br><br>
+
+        <!--Campo para ingresar "c"-->
+        <label for="valor_c">Ingrese c:</label>
+        <!--Para que el usuario ingrese el tercer valor (solo de tipo numérico)-->
+        <input type="number" id="valor_c" required><br><br>
+
+        <!--botón para calcular (onclick tiene la funcion para calcular raices)-->
+        <button onclick="calcular_raices()">Calcular</button>
+    </div>
+
+    <div>
+        <!--Muestra es texto de respuesta-->
+        <h2>Respuesta:</h2>
+        <!--Nos mostrará la respuesta del calculo-->
+        <p id="respuesta"></p>
+    </div>
+
+    <!--Java Script-->
+    <script>
+        // Se define la funcion "calcular raices" para el boton de la respuesta
+        function calcular_raices() {
+            // Variables de a, b y c tipo flotante, convierte los valores a números 
+            var a = parseFloat(document.getElementById("valor_a").value);
+            var b = parseFloat(document.getElementById("valor_b").value);
+            var c = parseFloat(document.getElementById("valor_c").value);
+            //Variable de la respuesta
+            var respuesta = "";
+
+            // Para que "a" no sea cero
+            if (a === 0) {
+                //Mensaje de error si "a" tiene un valor de cero
+                respuesta = "El valor no puede ser cero!, ingrese valor diferente de cero";
+            } else {
+                // Calcula el discriminante
+                var discriminante = b * b - 4 * a * c;
+                // Condicion para calcular las raíces (si es discriminante el mayor a 0)
+                if (discriminante > 0) {
+                    var x1 = (-b + Math.sqrt(discriminante)) / (2 * a);
+                    var x2 = (-b - Math.sqrt(discriminante)) / (2 * a);
+                    respuesta = "X1 es: " + x1 + " y X2 es: " + x2;
+                //Si el discriminante es igual a 0
+                } else if (discriminante === 0) {
+                    var x = -b / (2 * a);
+                    respuesta = "X es: " + x;
+                //Si es menor a 0 entonces se vuelve imaginaria
+                } else {
+                    var real = (-b / (2 * a)).toFixed(3);  //toFixed se utiliza para liminar el numero de decimales
+                    var imaginaria = (Math.sqrt(-discriminante) / (2 * a)).toFixed(3); //toFixed se utiliza para liminar el numero de decimales
+                    respuesta = "La solución es un número imaginario";
+                }
+            }
+
+            // Muestra la respuesta en la página
+            document.getElementById("respuesta").innerText = respuesta;
+        }
+    </script>
+    </head>
+
+
+</body>
+
+</html>
